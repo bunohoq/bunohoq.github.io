@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About — 박보영</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a class="brand" href="index.html">박보영<span class="dot">.</span></a>
+  <div class="nav-links">
+    <a href="about.html">About me<sup>01</sup></a>
+    <a href="index.html#projects">Work<sup>02</sup></a>
+  </div>
+  <a class="nav-cta" href="index.html#contact">Contact Now <span>↗</span></a>
+</nav>
+
+<div class="wrap">
+  <section class="about-hero">
+    <div>
+      <div class="eyebrow"><span class="dot"></span>About me</div>
+      <h1>Hi, I'm Park<br>Boyoung — 박보영.</h1>
+      <p>9개 마이크로서비스의 Gateway와 인증 흐름을 직접 설계하고, 크롤링부터 AI 분석까지 자동화 파이프라인을 혼자 구축한 <strong class="accent">풀스택 개발자</strong>입니다. 동시성 문제는 Lua Script 원자 연산으로 해결하고, 5분짜리 파이프라인은 병렬 처리로 20초까지 줄였습니다.<br><br>— 구조로 답합니다.</p>
+      <div class="hero-cta" style="display:flex; gap:12px; margin-top:28px; flex-wrap:wrap;">
+        <a class="btn btn-primary" href="index.html#contact">Contact me <span class="arrow">→</span></a>
+        <a class="btn btn-ghost" href="https://github.com/bunohoq" target="_blank" rel="noopener">GitHub <span class="arrow">↗</span></a>
+      </div>
+    </div>
+    <img class="photo reveal-scale" src="assets/img/profile/park-boyoung.jpg" alt="박보영 프로필 사진">
+  </section>
+
+  <section class="reveal">
+    <div class="about-head">
+      <div class="eyebrow"><span class="dot"></span>What I do</div>
+      <h2 class="h-display">Structure <em>over hype.</em></h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-card reveal">
+        <span class="num">01</span>
+        <h3>What I <span class="accent">do.</span></h3>
+        <p><strong>9개 마이크로서비스의 Gateway와 인증 흐름을 직접 설계</strong>하고, 크롤링부터 AI 분석까지 자동화 파이프라인을 혼자 구축한 <strong class="accent">풀스택 개발자</strong>입니다.</p>
+        <p>동시성 문제는 <strong>Lua Script 원자 연산</strong>으로 해결하고, 5분짜리 파이프라인은 <strong>병렬 처리로 20초</strong>까지 줄였습니다 — 구조로 답합니다.</p>
+      </div>
+      <div class="about-card reveal">
+        <span class="num">02</span>
+        <h3>Core <span class="accent">strengths.</span></h3>
+        <p>MSA · Spring Cloud Gateway · JWT/OAuth2 RTR · Kafka 비동기 이벤트 · Saga 보상 트랜잭션 · Transactional Outbox Pattern.</p>
+        <p>Selenium·Jsoup 하이브리드 크롤러 · Naver·Gemini API 통합 · TrendScore 정규화 점수 엔진 · Spring AI 기반 RAG 파이프라인.</p>
+      </div>
+    </div>
+    <div class="about-quote reveal">
+      MSA 환경에서는 통신 방식(Kafka vs Feign), 분산 트랜잭션 롤백, Outbox 패턴 — 모놀리스에서는 고려할 필요 없던 결정들이 모두 설계 단계에 있습니다. 직접 구현하며 아키텍처 선택이 안정성에 미치는 영향을 체득했습니다.
+      <span class="who">— Mossy 회고 중</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="ability-head">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Abilities</div>
+        <h2 class="h-display">What I <span class="accent">do.</span></h2>
+      </div>
+      <div class="right">도메인 설계부터 인프라까지 — 서비스의 <strong>전 영역에 책임감</strong>을 가지고 접근하는 <strong class="accent">풀스택 엔지니어</strong>.</div>
+    </div>
+    <div class="ability-grid">
+      <div class="ability-card reveal">
+        <div class="ico">{ }</div>
+        <h4>Backend &amp;<br>Architecture</h4>
+        <div class="desc">Java · Spring Boot · DDD · Hexagonal Architecture · Event-Driven</div>
+        <div class="pill-row"><span class="pill">Spring Cloud</span><span class="pill">Kafka</span><span class="pill">JPA</span><span class="pill">JWT · OAuth2</span></div>
+      </div>
+      <div class="ability-card alt reveal">
+        <div class="ico">≡</div>
+        <h4>Database &amp;<br>Search</h4>
+        <div class="desc">서비스별 DB 분리, TTL 캐싱, Lua Script 원자 연산, 색인 튜닝</div>
+        <div class="pill-row"><span class="pill">PostgreSQL</span><span class="pill">Oracle · MySQL</span><span class="pill">Redis</span><span class="pill">Elasticsearch</span></div>
+      </div>
+      <div class="ability-card reveal">
+        <div class="ico">∞</div>
+        <h4>DevOps &amp;<br>Cloud</h4>
+        <div class="desc">컨테이너 오케스트레이션, CI/CD, 운영-로컬 환경 분리, 관측성</div>
+        <div class="pill-row"><span class="pill">AWS</span><span class="pill">Docker · K8s</span><span class="pill">GitHub Actions</span><span class="pill">Nginx</span></div>
+      </div>
+      <div class="ability-card alt reveal">
+        <div class="ico">★</div>
+        <h4>Data &amp;<br>Automation</h4>
+        <div class="desc">크롤링 파이프라인, 외부 API 통합, AI 기반 분석, Spring AI · RAG</div>
+        <div class="pill-row"><span class="pill">Selenium · Jsoup</span><span class="pill">Naver · Gemini</span><span class="pill">Spring AI</span><span class="pill">Python · NumPy</span></div>
+      </div>
+      <div class="ability-card reveal">
+        <div class="ico">&lt;/&gt;</div>
+        <h4>Frontend &amp;<br>UI</h4>
+        <div class="desc">반응형 UI, 컴포넌트 기반 설계, 상태 관리 및 비동기 데이터 처리, 재사용 가능한 컴포넌트 구성</div>
+        <div class="pill-row"><span class="pill">React</span><span class="pill">Tailwind CSS</span><span class="pill">Shadcn UI</span><span class="pill">Axios</span></div>
+      </div>
+    </div>
+
+    <div class="tools-section">
+      <h3 class="tools-head">Tools I <em>use</em>.</h3>
+      <div class="tools-row">
+        <div class="tool-chip reveal"><div class="em">Java</div><div class="lab">JDK 21</div></div>
+        <div class="tool-chip reveal"><div class="em">Spring</div><div class="lab">Boot 3.4</div></div>
+        <div class="tool-chip reveal"><div class="em">Kafka</div><div class="lab">Messaging</div></div>
+        <div class="tool-chip reveal"><div class="em">Redis</div><div class="lab">Cache · RTR</div></div>
+        <div class="tool-chip reveal"><div class="em">RDBMS</div><div class="lab">PostgreSQL · MySQL · Oracle</div></div>
+        <div class="tool-chip reveal"><div class="em">AWS</div><div class="lab">EC2 · S3</div></div>
+        <div class="tool-chip reveal"><div class="em">Docker</div><div class="lab">Container</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="eyebrow" style="margin-bottom:20px;"><span class="dot"></span>Education &amp; Certifications</div>
+    <h2>Where I learned.</h2>
+    <div class="timeline">
+      <div class="timeline-row reveal">
+        <div class="tl-date">2025.12 — 2026.02</div>
+        <div>
+          <div class="tl-title">프로그래머스 <em>단기 심화 4기</em> (344 HRS)<span class="tl-tag bootcamp">Bootcamp</span></div>
+          <div class="tl-sub">MSA 기반 클라우드 네이티브 및 AI 서비스 구현 과정 — DDD · Kafka · Spring Batch · PG 결제 시스템, Kubernetes · API Gateway · GitHub Actions · Prometheus/Grafana, Elasticsearch 색인/튜닝 · Spring AI 기반 RAG</div>
+        </div>
+      </div>
+      <div class="timeline-row reveal">
+        <div class="tl-date">2025.06 — 2025.12</div>
+        <div>
+          <div class="tl-title">쌍용교육센터 <em>Full-Stack</em> (1,044 HRS)<span class="tl-tag bootcamp">Bootcamp</span></div>
+          <div class="tl-sub">AWS · Docker · Kubernetes 기반 Java Full-Stack 개발자 양성과정 — Java · Spring Boot · Spring Security · Oracle DB · MyBatis · JPA, HTML/CSS/JS · Docker · GitHub Actions · AWS 배포</div>
+        </div>
+      </div>
+      <div class="timeline-row reveal">
+        <div class="tl-date">2020.03 — 2023.12</div>
+        <div>
+          <div class="tl-title">수원대학교 <em>경제금융학과</em><span class="tl-tag degree">Degree</span></div>
+          <div class="tl-sub">통계분석·데이터 해석·AI·머신러닝 기초 — AI·데이터 인증제 이수, 분석적 사고 → 백엔드 도메인 설계 기반</div>
+        </div>
+      </div>
+    </div>
+    <div class="skills-grid" style="margin-top:40px;">
+      <div class="skill-card reveal">
+        <h3>정보처리기사 실기</h3>
+        <p>2026년 10월 실기 예정 (필기 합격)</p>
+      </div>
+      <div class="skill-card reveal">
+        <h3>TOEIC Speaking</h3>
+        <p>IM1 (재응시 예정 / 목표 IM3)</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="site-footer">
+  © 2026 박보영 · Full-Stack Developer Portfolio
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

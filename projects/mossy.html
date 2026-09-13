@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mossy — 박보영</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>:root{--accent:var(--lime); --accent-ink:#000000;}</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="brand" href="../index.html">박보영<span class="dot">.</span></a>
+  <div class="nav-links">
+    <a href="../about.html">About me<sup>01</sup></a>
+    <a href="../index.html#projects">Work<sup>02</sup></a>
+  </div>
+  <a class="nav-cta" href="../index.html#contact">Contact Now <span>↗</span></a>
+</nav>
+
+<div class="wrap">
+  <section class="case-hero">
+    <a class="back" href="../index.html#projects">← Back to work</a>
+    <div class="case-num">01</div>
+    <h1>Mossy <em>— Green commerce.</em></h1>
+    <div class="tags"><span>MSA</span><span>E-Commerce</span><span>2026</span></div>
+    <div class="links">
+      <a href="https://github.com/bunohoq/beadv4_4_FM_BE" target="_blank" rel="noopener">&lt;/&gt; Backend</a>
+      <a href="https://github.com/bunohoq/beadv4_4_FM_FE" target="_blank" rel="noopener">&lt;/&gt; Frontend</a>
+    </div>
+  </section>
+
+  <div class="case-cover reveal-scale"><img src="../assets/img/mossy/main.jpg" alt="Mossy 메인 화면"></div>
+
+  <div class="case-body">
+    <div class="case-meta">
+      <div class="ml">Category</div><div class="mv">Sustainable E-Commerce · MSA</div>
+      <div class="ml">Duration</div><div class="mv">2026.01.07 — 02.27 (약 8주)</div>
+      <div class="ml">Role</div><div class="mv">Gateway · Auth · Member 서비스 설계/구현<br>React 프론트엔드 개발</div>
+      <div class="ml">Team</div><div class="mv">5명</div>
+      <div class="ml">Tech composition</div>
+      <div class="stack-bars">
+        <div class="stack-bar"><span class="sb-name">Spring Boot</span><span class="sb-track"><span class="sb-fill" style="width:42%"></span></span><span class="sb-pct">42%</span></div>
+        <div class="stack-bar"><span class="sb-name">Kafka</span><span class="sb-track"><span class="sb-fill" style="width:20%"></span></span><span class="sb-pct">20%</span></div>
+        <div class="stack-bar"><span class="sb-name">PostgreSQL</span><span class="sb-track"><span class="sb-fill" style="width:14%"></span></span><span class="sb-pct">14%</span></div>
+        <div class="stack-bar"><span class="sb-name">Redis · ES</span><span class="sb-track"><span class="sb-fill" style="width:14%"></span></span><span class="sb-pct">14%</span></div>
+        <div class="stack-bar"><span class="sb-name">React · TS</span><span class="sb-track"><span class="sb-fill" style="width:10%"></span></span><span class="sb-pct">10%</span></div>
+      </div>
+    </div>
+
+    <div class="case-content-main reveal">
+      <div class="eyebrow"><span class="dot"></span>Overview</div>
+      <p>배송 데이터 기반 <strong>탄소 배출량을 실시간 계산</strong>하고, 수수료의 <span class="hl">최대 50%</span>를 환경단체에 자동 기부하는 <strong>MSA 기반 소셜 임팩트 이커머스 플랫폼</strong>. 9개 마이크로서비스와 2개 공통 모듈에 Hexagonal Architecture · DDD · Event-Driven Architecture를 적용했습니다.</p>
+      <div class="kpi-row">
+        <div class="kpi"><div class="kv"><span class="em">9</span>+2</div><div class="kl">Microservices</div></div>
+        <div class="kpi"><div class="kv"><span class="em">50</span>%</div><div class="kl">Max donation rate</div></div>
+        <div class="kpi"><div class="kv"><span class="em">10</span>등급</div><div class="kl">Carbon grading</div></div>
+      </div>
+
+      <h2 style="margin-top:56px;">Key implementations</h2>
+      <div class="feat-list">
+        <div class="feat"><div class="fn">01</div><div><div class="ft">API Gateway — JWT 인증 필터 / 헤더 변환</div><div class="fd">Authorization 헤더 Bearer 토큰 추출 → JWT 파싱 → 내부 서비스 전달용 X-User-Id / X-Seller-Id / X-User-Role 헤더로 변환. GlobalCors 우선순위 적용으로 AWS 환경 Preflight 정상 동작 확보.</div></div></div>
+        <div class="feat"><div class="fn">02</div><div><div class="ft">Lua Script CAS 기반 Refresh Token Rotation</div><div class="fd">Redis GET/SET 사이의 Race Condition을 단일 원자 명령으로 처리. RT 불일치 시 Replay Attack으로 판단하여 즉시 무효화 (반환값 1 / 0 / -1).</div></div></div>
+        <div class="feat"><div class="fn">03</div><div><div class="ft">Saga 패턴 — 분산 트랜잭션 보상</div><div class="fd">소셜 로그인 토큰 발급 실패 시 rollbackSocialLogin() 호출로 Member 서비스 데이터 롤백. MSA 환경에서 최종 일관성(Eventual Consistency) 보장.</div></div></div>
+        <div class="feat"><div class="fn">04</div><div><div class="ft">Transactional Outbox + Kafka 이벤트 순서 보장</div><div class="fd">@TransactionalEventListener(AFTER_COMMIT) 으로 DB 커밋 후 Kafka 발행 — 수신 서비스에서 항상 회원 데이터가 존재하도록 정합성 확보.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="case-section">
+    <h2>Architecture &amp; screens</h2>
+    <div class="gallery full">
+      <figure class="reveal-scale"><img src="../assets/img/mossy/architecture.png" alt="Mossy MSA 시스템 아키텍처"><figcaption>System architecture — React SPA → Spring Gateway → Auth · Product · Order · Payment · Settle (Kafka 비동기 통신) → MySQL · Redis · Elasticsearch · S3</figcaption></figure>
+    </div>
+    <div class="gallery" style="margin-top:20px;">
+      <figure class="reveal-scale"><img src="../assets/img/mossy/screen-home.jpg" alt="Mossy 메인 화면"><figcaption>메인 화면 — 실시간 인기 랭킹 · 친환경 상품 큐레이션</figcaption></figure>
+      <figure class="reveal-scale"><img src="../assets/img/mossy/login.jpg" alt="Mossy 로그인 화면"><figcaption>로그인 / 소셜 — Google · Kakao OAuth2 + JWT RTR</figcaption></figure>
+      <figure class="reveal-scale"><img src="../assets/img/mossy/signup.jpg" alt="Mossy 회원가입"><figcaption>회원가입 플로우 — PII AES 암호화 · BCrypt 해싱</figcaption></figure>
+      <figure class="reveal-scale"><img src="../assets/img/mossy/mypage.jpg" alt="Mossy 마이페이지"><figcaption>마이페이지 — MossyCash · 쿠폰 · 기부금 · 주문 내역</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Troubleshooting</h2>
+    <div class="trouble-grid">
+      <div class="tcard reveal">
+        <div class="tt">01 · Lua Script로 Refresh Token Race Condition 해결</div>
+        <div class="trow"><span class="tk">문제</span><span class="tv">동시 다발적 토큰 재발급 요청 시 Redis GET → SET 사이 Race Condition으로 동일 RT 중복 재발급 위험</span></div>
+        <div class="trow"><span class="tk">원인</span><span class="tv">GET과 SET이 별도 명령 → 원자성 미보장</span></div>
+        <div class="trow"><span class="tk">해결</span><span class="tv"><span class="hl">Lua Script CAS 로직</span>으로 단일 원자 명령 처리. 토큰 불일치 시 Replay Attack으로 즉시 무효화</span></div>
+        <div class="trow result"><span class="tk">결과</span><span class="tv">재발급 구간 원자성 확보, 토큰 탈취·재사용 시나리오 방어</span></div>
+      </div>
+      <div class="tcard reveal">
+        <div class="tt">02 · Saga 패턴 — 분산 트랜잭션 정합성</div>
+        <div class="trow"><span class="tk">문제</span><span class="tv">Member 회원 생성 성공 후 Auth 토큰 발급 실패 시 고아 데이터 발생</span></div>
+        <div class="trow"><span class="tk">원인</span><span class="tv">MSA 환경 — 서비스 간 트랜잭션 경계 분리로 단일 롤백 불가</span></div>
+        <div class="trow"><span class="tk">해결</span><span class="tv"><span class="hl">Saga 보상 트랜잭션</span> — 실패 시 rollbackSocialLogin(userId) 호출로 Member 데이터 삭제</span></div>
+        <div class="trow result"><span class="tk">결과</span><span class="tv">고아 데이터 미발생, Eventual Consistency 보장</span></div>
+      </div>
+      <div class="tcard reveal">
+        <div class="tt">03 · Gateway CORS Preflight 차단 문제</div>
+        <div class="trow"><span class="tk">문제</span><span class="tv">AWS 배포 환경에서 브라우저 Preflight(OPTIONS) 요청이 Auth Filter에서 차단되어 CORS 오류 발생</span></div>
+        <div class="trow"><span class="tk">원인</span><span class="tv">Filter Chain 처리 순서상 GlobalCors 설정 전에 Auth Filter가 먼저 실행</span></div>
+        <div class="trow"><span class="tk">해결</span><span class="tv"><span class="hl">GlobalCors 설정을 최우선 순위</span>로 적용, OPTIONS 요청이 Auth Filter 우회</span></div>
+        <div class="trow result"><span class="tk">결과</span><span class="tv">로컬·AWS 환경 모두에서 CORS 정상 동작</span></div>
+      </div>
+      <div class="tcard reveal">
+        <div class="tt">04 · TransactionalEventListener + Kafka 이벤트 순서</div>
+        <div class="trow"><span class="tk">문제</span><span class="tv">회원가입 트랜잭션 커밋 전 Kafka 발행 시 수신 서비스에서 회원 데이터 미존재 가능성</span></div>
+        <div class="trow"><span class="tk">원인</span><span class="tv">Spring Event와 Kafka 발행 시점이 트랜잭션 커밋과 분리되지 않음</span></div>
+        <div class="trow"><span class="tk">해결</span><span class="tv"><span class="hl">@TransactionalEventListener(AFTER_COMMIT)</span> 으로 DB 커밋 후 Kafka 이벤트 발행</span></div>
+        <div class="trow result"><span class="tk">결과</span><span class="tv">DB 커밋 → Kafka 발행 순서 보장, 수신 서비스 데이터 일관성 확보</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="more-projects">
+  <div class="wrap">
+    <h2>More projects</h2>
+    <div class="more-projects-grid">
+      <a class="more-card" href="trendlens.html" data-cursor="View case study →">
+        <figure><img src="../assets/img/trendlens/main.jpg" alt="TrendLens"></figure>
+        <figcaption>TrendLens — Fashion radar.</figcaption>
+      </a>
+      <a class="more-card" href="tripbear.html" data-cursor="View case study →">
+        <figure><img src="../assets/img/tripbear/main.jpg" alt="TripBear"></figure>
+        <figcaption>TripBear — AI travel routes.</figcaption>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">© 2026 박보영 · Full-Stack Developer Portfolio</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

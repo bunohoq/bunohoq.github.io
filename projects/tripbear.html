@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TripBear — 박보영</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>:root{--accent:var(--blue); --accent-ink:#FFFFFF;}</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="brand" href="../index.html">박보영<span class="dot">.</span></a>
+  <div class="nav-links">
+    <a href="../about.html">About me<sup>01</sup></a>
+    <a href="../index.html#projects">Work<sup>02</sup></a>
+  </div>
+  <a class="nav-cta" href="../index.html#contact">Contact Now <span>↗</span></a>
+</nav>
+
+<div class="wrap">
+  <section class="case-hero">
+    <a class="back" href="../index.html#projects">← Back to work</a>
+    <div class="case-num">03</div>
+    <h1>TripBear <em>— AI travel routes.</em></h1>
+    <div class="tags"><span>AI</span><span>API</span><span>2025</span></div>
+    <div class="links">
+      <a href="https://github.com/bunohoq/TripBear_spring-boot" target="_blank" rel="noopener">&lt;/&gt; code</a>
+    </div>
+  </section>
+
+  <div class="case-cover reveal-scale"><img src="../assets/img/tripbear/main.jpg" alt="TripBear 메인 화면"></div>
+
+  <div class="case-body">
+    <div class="case-meta">
+      <div class="ml">Category</div><div class="mv">AI Travel Recommendation · MVC</div>
+      <div class="ml">Duration</div><div class="mv">2025.11.07 — 11.17 (Spring)<br><span style="color:var(--mute);font-size:12.5px">+ JSP PoC 2025.10.01 — 10.17</span></div>
+      <div class="ml">Role</div><div class="mv">API Integration · Backend · DB · DevOps · Frontend</div>
+      <div class="ml">Team</div><div class="mv">6명</div>
+      <div class="ml">Tech composition</div>
+      <div class="stack-bars">
+        <div class="stack-bar"><span class="sb-name">Spring Boot</span><span class="sb-track"><span class="sb-fill" style="width:34%"></span></span><span class="sb-pct">34%</span></div>
+        <div class="stack-bar"><span class="sb-name">External APIs</span><span class="sb-track"><span class="sb-fill" style="width:28%"></span></span><span class="sb-pct">28%</span></div>
+        <div class="stack-bar"><span class="sb-name">Oracle · MyBatis</span><span class="sb-track"><span class="sb-fill" style="width:16%"></span></span><span class="sb-pct">16%</span></div>
+        <div class="stack-bar"><span class="sb-name">Security</span><span class="sb-track"><span class="sb-fill" style="width:12%"></span></span><span class="sb-pct">12%</span></div>
+        <div class="stack-bar"><span class="sb-name">Thymeleaf · UI</span><span class="sb-track"><span class="sb-fill" style="width:10%"></span></span><span class="sb-pct">10%</span></div>
+      </div>
+    </div>
+
+    <div class="case-content-main reveal">
+      <div class="eyebrow"><span class="dot"></span>Overview</div>
+      <p>사용자의 여행 스타일·날씨·시간·선호 카테고리를 종합 분석하여 <strong>AI가 일정과 동선을 자동 생성</strong>하는 맞춤 여행 추천 서비스. JSP PoC에서 검증한 AI 연동 구조와 MVC 패턴을 <span class="hl">Spring Boot로 마이그레이션</span>, 외부 데이터 연동을 강화했습니다.</p>
+      <div class="kpi-row">
+        <div class="kpi"><div class="kv"><span class="em">4</span>+ APIs</div><div class="kl">External integrations</div></div>
+        <div class="kpi"><div class="kv"><span class="em">2</span> 버전</div><div class="kl">JSP PoC → Spring</div></div>
+        <div class="kpi"><div class="kv">100%</div><div class="kl">Demo completed</div></div>
+      </div>
+
+      <h2 style="margin-top:56px;">Core features</h2>
+      <div class="feat-list">
+        <div class="feat"><div class="fn">01</div><div><div class="ft">질문 카드 → AI 추천 파라미터</div><div class="fd">사용자 여행 스타일·선호도·체력 정보를 질문 카드 형식으로 수집하여 AI 추천 파라미터로 변환.</div></div></div>
+        <div class="feat"><div class="fn">02</div><div><div class="ft">Gemini × Kakao Mobility 루트 시각화</div><div class="fd">Gemini API로 여행지 루트 자동 생성 + Kakao Mobility API로 이동 경로 시각화. OpenWeather 연동으로 날씨 조건 반영한 일정 최적화.</div></div></div>
+        <div class="feat"><div class="fn">03</div><div><div class="ft">외부 API 추상화 레이어</div><div class="fd">기상청 API 응답 불안정 문제 — 추상화 레이어 설계 후 OpenWeather로 교체. 외부 API 의존성 관리의 중요성을 실전으로 학습.</div></div></div>
+        <div class="feat"><div class="fn">04</div><div><div class="ft">방어적 JSON 파싱 Fallback</div><div class="fd">Gemini 응답의 키 순서/누락 불규칙 문제 — JSON 구조 패턴 분석 후 기본값 처리 Fallback 추가. 이 경험이 TrendLens의 구분자 기반 Fallback 전략으로 발전.</div></div></div>
+        <div class="feat"><div class="fn">05</div><div><div class="ft">Spring Security 기반 인가 체계</div><div class="fd">로그인/인가 체계 및 회원별 여행 기록 관리. JSP PoC의 세션 기반 인증을 Spring Security로 안정적으로 이식.</div></div></div>
+        <div class="feat"><div class="fn">06</div><div><div class="ft">Health Care 부가 기능</div><div class="fd">이동 거리·시간·체중 기반 칼로리 자동 산출, 관리자 전용 공지사항 CRUD + 등급 기반 접근 제어 등 부가 도메인까지 구현.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="case-section">
+    <h2>Architecture, ERD &amp; screens</h2>
+    <div class="gallery full">
+      <figure class="reveal-scale"><img src="../assets/img/tripbear/architecture.png" alt="TripBear AI 루트 생성 기능 흐름도"><figcaption>AI route generation flow — 입력 정규화 → Gemini Draft → Kakao Local 검증 + OpenWeather·Mobility 보강 → Greedy/2-opt 최적화 → DB·지도 시각화</figcaption></figure>
+      <figure class="reveal-scale"><img src="../assets/img/tripbear/erd.png" alt="TripBear ERD"><figcaption>ERD — User(회원·신고·로그) · Travel(게시판·후기·동행) · Service(예약·렌터카·숙소·장소·날씨·헬스케어·AI 루트) 도메인</figcaption></figure>
+    </div>
+    <div class="gallery" style="margin-top:20px;">
+      <figure class="reveal-scale"><img src="../assets/img/tripbear/screen-home.jpg" alt="TripBear 메인 화면"><figcaption>Home — 컨디션·날씨·예산 기반 맞춤 루트 생성 + 오늘의 날씨·축제 위젯</figcaption></figure>
+      <figure class="reveal-scale"><img src="../assets/img/tripbear/plan-date.jpg" alt="TripBear 일정 선택 캘린더"><figcaption>여행 날짜 선택 — 월별 캘린더 + 선택 일자 하이라이트</figcaption></figure>
+      <figure class="reveal-scale"><img src="../assets/img/tripbear/route.jpg" alt="TripBear 여행 루트 시각화"><figcaption>AI 루트 자동 생성 — Kakao Mobility 지도 + 일정 카드(VISIT·ARRIVE·EAT·WALK)</figcaption></figure>
+      <figure class="reveal-scale"><img src="../assets/img/tripbear/healthcare.jpg" alt="TripBear 헬스케어 결과"><figcaption>헬스케어 결과 — 이동 거리·체중 기반 칼로리 자동 산출 (4.70km · 275kcal)</figcaption></figure>
+      <figure class="reveal-scale"><img src="../assets/img/tripbear/health-select.jpg" alt="TripBear 헬스케어 선택지"><figcaption>특이 건강 고려 — 없음/고혈압/당뇨/무릎·관절/기타 → AI 추천 보정</figcaption></figure>
+      <figure class="reveal-scale"><img src="../assets/img/tripbear/trend.jpg" alt="TripBear 여행 트렌드"><figcaption>여행 트렌드 Top 100 — 지역 태그 필터 + 인기 여행지 그리드</figcaption></figure>
+      <figure class="reveal-scale"><img src="../assets/img/tripbear/map-nearby.jpg" alt="TripBear 지도 속 주변 관광지"><figcaption>주변 관광지/음식점 — 카테고리 토글 + 클러스터링 마커</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Troubleshooting — 3 cases</h2>
+    <div class="trouble-grid">
+      <div class="tcard reveal">
+        <div class="tt">01 · 기상청 API 교체 — 추상화 레이어 설계</div>
+        <div class="trow"><span class="tk">문제</span><span class="tv">기상청 공공 API 연동 시 응답 포맷 불안정 및 간헐적 타임아웃으로 서비스 안정성 저하</span></div>
+        <div class="trow"><span class="tk">해결</span><span class="tv"><span class="hl">API 추상화 레이어</span> 설계 후 OpenWeather로 교체 — 이후 다른 날씨 API 교체도 용이한 구조</span></div>
+        <div class="trow result"><span class="tk">결과</span><span class="tv">날씨 연동 기능 안정화, 외부 API 의존성 관리의 중요성 체감</span></div>
+      </div>
+      <div class="tcard reveal">
+        <div class="tt">02 · Gemini API JSON 응답 불규칙 문제</div>
+        <div class="trow"><span class="tk">문제</span><span class="tv">AI 응답이 매 요청마다 키 순서 변경, 일부 필드 누락 등 포맷이 일정하지 않아 파싱 오류 발생</span></div>
+        <div class="trow"><span class="tk">해결</span><span class="tv">JSON 구조 패턴 분석 후 <span class="hl">방어적 파싱 로직</span> 구현, 필드 누락 시 기본값 처리 Fallback 추가</span></div>
+        <div class="trow result"><span class="tk">결과</span><span class="tv">파싱 성공률 크게 향상 — 이 경험이 TrendLens의 구분자 기반 Fallback 전략으로 발전</span></div>
+      </div>
+      <div class="tcard reveal">
+        <div class="tt">03 · AI 환각 &amp; 좌표 어긋남 — Kakao Local 검증</div>
+        <div class="trow"><span class="tk">문제</span><span class="tv">Gemini가 생성한 장소 일부가 실제 존재하지 않거나, 위경도가 다른 지역으로 어긋나 지도 마커가 엉뚱한 곳에 표시</span></div>
+        <div class="trow"><span class="tk">원인</span><span class="tv">LLM의 위치 정보 환각(hallucination) — 좌표 정확도를 보장하지 않음</span></div>
+        <div class="trow"><span class="tk">해결</span><span class="tv">Gemini 후보 리스트를 <span class="hl">Kakao Local Search</span>로 재검증 → 주소/위경도 재획득, 매칭 실패 시 해당 stop 제거 + 인근 카테고리로 대체</span></div>
+        <div class="trow result"><span class="tk">결과</span><span class="tv">루트 상의 마커가 항상 실재 위치에 표시, 동선·이동시간 계산 정합성 확보</span></div>
+      </div>
+      <div class="tcard tcard-evidence reveal">
+        <div class="tn">EV</div>
+        <div class="tt">Evidence — 환각·좌표 어긋남 실측</div>
+        <div class="ev-body">
+          <div class="ev-chrome">
+            <span class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></span>
+            <span class="url">tripbear.kr / route — Gemini 좌표 오류</span>
+          </div>
+          <img src="../assets/img/tripbear/trouble-geocoding.jpg" alt="TripBear 환각·좌표 어긋남 — 부산 지도 비교 캡처">
+        </div>
+        <div class="ev-caption">빨간 박스 — Gemini가 생성한 좌표가 실제 위치와 어긋난 지점. Kakao Local 재검증으로 매칭 실패한 stop은 제거되거나 인근 카테고리로 대체됩니다.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="more-projects">
+  <div class="wrap">
+    <h2>More projects</h2>
+    <div class="more-projects-grid">
+      <a class="more-card" href="mossy.html" data-cursor="View case study →">
+        <figure><img src="../assets/img/mossy/main.jpg" alt="Mossy"></figure>
+        <figcaption>Mossy — Green commerce.</figcaption>
+      </a>
+      <a class="more-card" href="trendlens.html" data-cursor="View case study →">
+        <figure><img src="../assets/img/trendlens/main.jpg" alt="TrendLens"></figure>
+        <figcaption>TrendLens — Fashion radar.</figcaption>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">© 2026 박보영 · Full-Stack Developer Portfolio</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

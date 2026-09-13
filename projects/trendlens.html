@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TrendLens — 박보영</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>:root{--accent:var(--magenta); --accent-ink:#FFFFFF;}</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="brand" href="../index.html">박보영<span class="dot">.</span></a>
+  <div class="nav-links">
+    <a href="../about.html">About me<sup>01</sup></a>
+    <a href="../index.html#projects">Work<sup>02</sup></a>
+  </div>
+  <a class="nav-cta" href="../index.html#contact">Contact Now <span>↗</span></a>
+</nav>
+
+<div class="wrap">
+  <section class="case-hero">
+    <a class="back" href="../index.html#projects">← Back to work</a>
+    <div class="case-num">02</div>
+    <h1>TrendLens <em>— Fashion radar.</em></h1>
+    <div class="tags"><span>Crawling</span><span>AI</span><span>2025</span></div>
+    <div class="links">
+      <a href="https://github.com/bunohoq/TrendLens-backend-" target="_blank" rel="noopener">&lt;/&gt; Backend</a>
+      <a href="https://github.com/bunohoq/TrendLens-frontend-" target="_blank" rel="noopener">&lt;/&gt; Frontend</a>
+    </div>
+  </section>
+
+  <div class="case-cover reveal-scale"><img src="../assets/img/trendlens/main.jpg" alt="TrendLens Weekly Ranking"></div>
+
+  <div class="case-body">
+    <div class="case-meta">
+      <div class="ml">Category</div><div class="mv">Fashion Trend Analytics · Pipeline</div>
+      <div class="ml">Duration</div><div class="mv">2025.12.02 — 12.15 (약 2주)</div>
+      <div class="ml">Role</div><div class="mv">Full-stack — Backend · Crawler · AI · Frontend</div>
+      <div class="ml">Team</div><div class="mv">개인 프로젝트</div>
+      <div class="ml">Tech composition</div>
+      <div class="stack-bars">
+        <div class="stack-bar"><span class="sb-name">Spring Boot</span><span class="sb-track"><span class="sb-fill" style="width:38%"></span></span><span class="sb-pct">38%</span></div>
+        <div class="stack-bar"><span class="sb-name">Crawler</span><span class="sb-track"><span class="sb-fill" style="width:22%"></span></span><span class="sb-pct">22%</span></div>
+        <div class="stack-bar"><span class="sb-name">External APIs</span><span class="sb-track"><span class="sb-fill" style="width:18%"></span></span><span class="sb-pct">18%</span></div>
+        <div class="stack-bar"><span class="sb-name">React · TS</span><span class="sb-track"><span class="sb-fill" style="width:14%"></span></span><span class="sb-pct">14%</span></div>
+        <div class="stack-bar"><span class="sb-name">Oracle · Redis</span><span class="sb-track"><span class="sb-fill" style="width:8%"></span></span><span class="sb-pct">8%</span></div>
+      </div>
+    </div>
+
+    <div class="case-content-main reveal">
+      <div class="eyebrow"><span class="dot"></span>Overview</div>
+      <p>무신사 랭킹만으로는 <strong>"진짜 트렌드"</strong>를 포착할 수 없다는 문제 인식에서 출발. 내부 랭킹 데이터와 외부 검색 트래픽(네이버 DataLab)을 결합해 <span class="hl">TrendScore</span>를 산출하고, Gemini AI가 "왜 이 아이템이 주목받는지"를 자연어로 해석합니다.</p>
+      <div class="kpi-row">
+        <div class="kpi"><div class="kv"><span class="em">10</span>×</div><div class="kl">Pipeline speedup</div></div>
+        <div class="kpi"><div class="kv"><span class="em">3</span>단계</div><div class="kl">Fallback strategy</div></div>
+        <div class="kpi"><div class="kv"><span class="em">2</span>weeks</div><div class="kl">End-to-end build</div></div>
+      </div>
+
+      <h2 style="margin-top:56px;">Pipeline highlights</h2>
+      <div class="feat-list">
+        <div class="feat"><div class="fn">01</div><div><div class="ft">TrendScore 계산 엔진</div><div class="fd">단어 빈도(ScoreA)와 DataLab 검색 트래픽(ScoreB)의 편차를 정규화로 해결. FinalScore = A·0.4 + B·0.6, 전일 대비 growthRate로 HOT 판별.</div></div></div>
+        <div class="feat"><div class="fn">02</div><div><div class="ft">크롤링 속도 5분 → 20–30초</div><div class="fd">20 키워드 × 10 블로그 순차 크롤링을 parallelStream() 으로 병렬 처리, 개별 URL try-catch 격리 — 약 10배 단축.</div></div></div>
+        <div class="feat"><div class="fn">03</div><div><div class="ft">3단계 Fallback 크롤러</div><div class="fd">동적 크롤링 → Jsoup DOM 파싱 → 키워드 기반 카테고리 보정. User-Agent 변경 + AutomationControlled 비활성으로 봇 차단 회피.</div></div></div>
+        <div class="feat"><div class="fn">04</div><div><div class="ft">AI 분석 — Gemini 프롬프트 엔지니어링</div><div class="fd">"요약(3줄) ||| 스타일링 팁(1문장)" 구분자 형식으로 출력 강제 → UI 파싱 안정성 확보. 분석 근거 sourceUrls 저장으로 출처 추적 가능.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="case-section">
+    <h2>Pipeline, architecture &amp; ERD</h2>
+    <div class="gallery full">
+      <figure class="reveal-scale"><img src="../assets/img/trendlens/pipeline.png" alt="TrendLens 백엔드 자동화 파이프라인"><figcaption>Automation pipeline — Daily Scheduler + Selenium·Jsoup 크롤링 → Naver Search·DataLab 수집/정규화 → Gemini AI 분석 → React 대시보드</figcaption></figure>
+      <figure class="reveal-scale"><img src="../assets/img/trendlens/architecture.png" alt="TrendLens 시스템 아키텍처"><figcaption>System architecture — React Dashboard → FastAPI + Redis Broker → Celery Workers(Crawler·Metric·ScoreEngine·AI) → Musinsa·Naver·Gemini 외부 통합</figcaption></figure>
+      <figure class="reveal-scale"><img src="../assets/img/trendlens/erd.png" alt="TrendLens ERD"><figcaption>Data model — 회원 관심 키워드 · TrendScore · WordFrequency · DailyMetric + BatchJob/Step/Log 실행 이력 테이블</figcaption></figure>
+    </div>
+    <div class="gallery" style="margin-top:20px;">
+      <figure class="reveal-scale"><img src="../assets/img/trendlens/screen-weekly.jpg" alt="TrendLens Weekly Ranking"><figcaption>Weekly Ranking — TrendScore 기반 주간 랭킹 + Insight Brief</figcaption></figure>
+      <figure class="reveal-scale"><img src="../assets/img/trendlens/ai-insight.jpg" alt="TrendLens AI Insight Detail"><figcaption>AI Insight Detail — Gemini 분석 요약 + Styling Tip Fallback</figcaption></figure>
+      <figure class="reveal-scale"><img src="../assets/img/trendlens/favorites.jpg" alt="TrendLens My Interest Ranking"><figcaption>My Interest Ranking — 관심 키워드 실시간 추적 · HOT · Growth %</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Troubleshooting — 6 cases</h2>
+    <div class="trouble-grid">
+      <div class="tcard reveal">
+        <div class="tt">01 · Selenium 크롤링 차단 &amp; 요소 탐지 실패</div>
+        <div class="trow"><span class="tk">문제</span><span class="tv">Next.js 기반 무신사 페이지에서 CSR + Lazy Loading + 봇 차단(403)으로 상품 정보 수집 실패</span></div>
+        <div class="trow"><span class="tk">해결</span><span class="tv">UA 변경, disable-blink-features=AutomationControlled, WebDriverWait + JsExecutor. <span class="hl">3단계 Fallback</span>(동적 → Jsoup → 키워드 보정)</span></div>
+        <div class="trow result"><span class="tk">결과</span><span class="tv">봇 차단 감소, Lazy Loading 요소 안정 로딩, 데이터 누락 해소</span></div>
+      </div>
+      <div class="tcard reveal">
+        <div class="tt">02 · 데이터 수집 속도 저하 (5분 → 20–30초)</div>
+        <div class="trow"><span class="tk">문제</span><span class="tv">20 키워드 × 10 블로그 순차 크롤링으로 전체 파이프라인 5분 이상 소요</span></div>
+        <div class="trow"><span class="tk">원인</span><span class="tv">네트워크 I/O(Jsoup)가 이중 for-loop 안에서 Blocking 방식으로 동작</span></div>
+        <div class="trow"><span class="tk">해결</span><span class="tv">상세 페이지 크롤링을 <span class="hl">parallelStream()</span> 으로 병렬화, URL 단위 try-catch 격리</span></div>
+        <div class="trow result"><span class="tk">결과</span><span class="tv">전체 실행 시간 약 10배 단축 (5분 → 20–30초)</span></div>
+      </div>
+      <div class="tcard reveal">
+        <div class="tt">03 · TrendScore ScoreB 미산출 &amp; DataLab 연동 실패</div>
+        <div class="trow"><span class="tk">문제</span><span class="tv">로그상 "저장 완료"인데 TrendMetric 테이블 비어 있고 ScoreB가 항상 0</span></div>
+        <div class="trow"><span class="tk">원인</span><span class="tv">상품명(옵션·색상·특수문자 포함) 그대로 전송 → data: [] 빈 응답. HTTP 200만 체크하여 오판</span></div>
+        <div class="trow"><span class="tk">해결</span><span class="tv"><span class="hl">검색어 전처리</span> 후 순수 키워드만 요청. 빈 응답 시 Warning 로그 후 저장 스킵</span></div>
+        <div class="trow result"><span class="tk">결과</span><span class="tv">TrendMetric 정상 적재, 의미 있는 랭킹 동작</span></div>
+        <div class="t-evidence"><img src="../assets/img/trendlens/trouble-datalab.jpg" alt="ScoreB 컬럼이 전부 0으로 적재된 SQL 결과 로그"><div class="t-evidence-cap">Evidence · ScoreB 컬럼이 전부 0으로 적재된 실측 로그</div></div>
+      </div>
+      <div class="tcard reveal">
+        <div class="tt">04 · JPA Session/EntityManager is closed</div>
+        <div class="trow"><span class="tk">문제</span><span class="tv">크롤링 중 예외 한 번 발생 후 모든 DB 접근이 Session is closed 로 실패</span></div>
+        <div class="trow"><span class="tk">원인</span><span class="tv">큰 @Transactional 내부 RuntimeException → 영속성 컨텍스트 종료</span></div>
+        <div class="trow"><span class="tk">해결</span><span class="tv">대규모 메서드 트랜잭션 제거, 저장 로직만 <span class="hl">REQUIRES_NEW</span> 단위로 분리</span></div>
+        <div class="trow result"><span class="tk">결과</span><span class="tv">장시간 크롤링에서도 세션 안정 유지, 단일 실패가 전체 배치를 중단시키지 않도록 격리</span></div>
+      </div>
+      <div class="tcard reveal">
+        <div class="tt">05 · Midnight Gap — 자정~배치 전 랭킹 공백</div>
+        <div class="trow"><span class="tk">문제</span><span class="tv">매일 자정~새벽 3시 사이 랭킹 페이지가 완전히 비어 보이는 현상</span></div>
+        <div class="trow"><span class="tk">원인</span><span class="tv">LocalDate.now() 기준 조회인데 배치 실행(03:00) 전에는 해당 날짜 데이터 없음</span></div>
+        <div class="trow"><span class="tk">해결</span><span class="tv"><span class="hl">SELECT MAX(base_date)</span> 로 DB에 존재하는 최신 날짜 조회 후 랭킹 반환</span></div>
+        <div class="trow result"><span class="tk">결과</span><span class="tv">언제 접속해도 공백 없이 직전 배치 결과 노출</span></div>
+        <div class="t-evidence"><img src="../assets/img/trendlens/trouble-midnight.jpg" alt="자정 직후 Weekly Ranking 페이지가 END OF LIST 상태"><div class="t-evidence-cap">Evidence · 새벽 시간대 END OF LIST 빈 화면</div></div>
+      </div>
+      <div class="tcard reveal">
+        <div class="tt">06 · AWS 서버 타임존 불일치로 배치 미실행</div>
+        <div class="trow"><span class="tk">문제</span><span class="tv">새벽 3시 실행돼야 할 배치가 의도한 시간에 동작하지 않음</span></div>
+        <div class="trow"><span class="tk">원인</span><span class="tv">AWS 서버 기본 타임존이 UTC — @Scheduled(cron = "0 0 3 * * *") 가 UTC 03:00에 실행</span></div>
+        <div class="trow"><span class="tk">해결</span><span class="tv"><span class="hl">zone = "Asia/Seoul"</span> 명시로 스케줄러 타임존 고정</span></div>
+        <div class="trow result"><span class="tk">결과</span><span class="tv">로컬·AWS 모두에서 KST 새벽 3시에 정확히 배치 수행</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="more-projects">
+  <div class="wrap">
+    <h2>More projects</h2>
+    <div class="more-projects-grid">
+      <a class="more-card" href="mossy.html" data-cursor="View case study →">
+        <figure><img src="../assets/img/mossy/main.jpg" alt="Mossy"></figure>
+        <figcaption>Mossy — Green commerce.</figcaption>
+      </a>
+      <a class="more-card" href="tripbear.html" data-cursor="View case study →">
+        <figure><img src="../assets/img/tripbear/main.jpg" alt="TripBear"></figure>
+        <figcaption>TripBear — AI travel routes.</figcaption>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">© 2026 박보영 · Full-Stack Developer Portfolio</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
