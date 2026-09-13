@@ -62,10 +62,10 @@
 
       <h2 style="margin-top:56px;">Pipeline highlights</h2>
       <div class="feat-list">
-        <div class="feat"><div class="fn">01</div><div><div class="ft">TrendScore 계산 엔진</div><div class="fd">단어 빈도(ScoreA)와 DataLab 검색 트래픽(ScoreB)의 편차를 정규화로 해결. FinalScore = A·0.4 + B·0.6, 전일 대비 growthRate로 HOT 판별.</div></div></div>
-        <div class="feat"><div class="fn">02</div><div><div class="ft">크롤링 속도 5분 → 20–30초</div><div class="fd">20 키워드 × 10 블로그 순차 크롤링을 parallelStream() 으로 병렬 처리, 개별 URL try-catch 격리 — 약 10배 단축.</div></div></div>
-        <div class="feat"><div class="fn">03</div><div><div class="ft">3단계 Fallback 크롤러</div><div class="fd">동적 크롤링 → Jsoup DOM 파싱 → 키워드 기반 카테고리 보정. User-Agent 변경 + AutomationControlled 비활성으로 봇 차단 회피.</div></div></div>
-        <div class="feat"><div class="fn">04</div><div><div class="ft">AI 분석 — Gemini 프롬프트 엔지니어링</div><div class="fd">"요약(3줄) ||| 스타일링 팁(1문장)" 구분자 형식으로 출력 강제 → UI 파싱 안정성 확보. 분석 근거 sourceUrls 저장으로 출처 추적 가능.</div></div></div>
+        <div class="feat"><div class="fn">01</div><div><div class="ft">TrendScore 계산 엔진</div><div class="fd">단어 빈도(ScoreA)와 DataLab 검색 트래픽(ScoreB)의 편차를 정규화로 해결. <code class="hl">FinalScore = A·0.4 + B·0.6</code>, 전일 대비 growthRate로 HOT 판별.</div></div></div>
+        <div class="feat"><div class="fn">02</div><div><div class="ft">크롤링 속도 5분 → 20–30초</div><div class="fd">20 키워드 × 10 블로그 순차 크롤링을 <code class="hl">parallelStream()</code> 으로 병렬 처리, 개별 URL try-catch 격리 — 약 10배 단축.</div></div></div>
+        <div class="feat"><div class="fn">03</div><div><div class="ft">3단계 Fallback 크롤러</div><div class="fd">동적 크롤링 → Jsoup DOM 파싱 → 키워드 기반 카테고리 보정. <code class="hl">User-Agent</code> 변경 + <code class="hl">AutomationControlled</code> 비활성으로 봇 차단 회피.</div></div></div>
+        <div class="feat"><div class="fn">04</div><div><div class="ft">AI 분석 — Gemini 프롬프트 엔지니어링</div><div class="fd">"요약(3줄) ||| 스타일링 팁(1문장)" 구분자 형식으로 출력 강제 → UI 파싱 안정성 확보. 분석 근거 <code class="hl">sourceUrls</code> 저장으로 출처 추적 가능.</div></div></div>
       </div>
     </div>
   </div>

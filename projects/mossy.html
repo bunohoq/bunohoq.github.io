@@ -62,10 +62,10 @@
 
       <h2 style="margin-top:56px;">Key implementations</h2>
       <div class="feat-list">
-        <div class="feat"><div class="fn">01</div><div><div class="ft">API Gateway — JWT 인증 필터 / 헤더 변환</div><div class="fd">Authorization 헤더 Bearer 토큰 추출 → JWT 파싱 → 내부 서비스 전달용 X-User-Id / X-Seller-Id / X-User-Role 헤더로 변환. GlobalCors 우선순위 적용으로 AWS 환경 Preflight 정상 동작 확보.</div></div></div>
+        <div class="feat"><div class="fn">01</div><div><div class="ft">API Gateway — JWT 인증 필터 / 헤더 변환</div><div class="fd">Authorization 헤더 Bearer 토큰 추출 → JWT 파싱 → 내부 서비스 전달용 <code class="hl">X-User-Id / X-Seller-Id / X-User-Role</code> 헤더로 변환. GlobalCors 우선순위 적용으로 AWS 환경 Preflight 정상 동작 확보.</div></div></div>
         <div class="feat"><div class="fn">02</div><div><div class="ft">Lua Script CAS 기반 Refresh Token Rotation</div><div class="fd">Redis GET/SET 사이의 Race Condition을 단일 원자 명령으로 처리. RT 불일치 시 Replay Attack으로 판단하여 즉시 무효화 (반환값 1 / 0 / -1).</div></div></div>
-        <div class="feat"><div class="fn">03</div><div><div class="ft">Saga 패턴 — 분산 트랜잭션 보상</div><div class="fd">소셜 로그인 토큰 발급 실패 시 rollbackSocialLogin() 호출로 Member 서비스 데이터 롤백. MSA 환경에서 최종 일관성(Eventual Consistency) 보장.</div></div></div>
-        <div class="feat"><div class="fn">04</div><div><div class="ft">Transactional Outbox + Kafka 이벤트 순서 보장</div><div class="fd">@TransactionalEventListener(AFTER_COMMIT) 으로 DB 커밋 후 Kafka 발행 — 수신 서비스에서 항상 회원 데이터가 존재하도록 정합성 확보.</div></div></div>
+        <div class="feat"><div class="fn">03</div><div><div class="ft">Saga 패턴 — 분산 트랜잭션 보상</div><div class="fd">소셜 로그인 토큰 발급 실패 시 <code class="hl">rollbackSocialLogin()</code> 호출로 Member 서비스 데이터 롤백. MSA 환경에서 최종 일관성(Eventual Consistency) 보장.</div></div></div>
+        <div class="feat"><div class="fn">04</div><div><div class="ft">Transactional Outbox + Kafka 이벤트 순서 보장</div><div class="fd"><code class="hl">@TransactionalEventListener(AFTER_COMMIT)</code> 으로 DB 커밋 후 Kafka 발행 — 수신 서비스에서 항상 회원 데이터가 존재하도록 정합성 확보.</div></div></div>
       </div>
     </div>
   </div>
