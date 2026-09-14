@@ -41,6 +41,15 @@ a { color:inherit; }
   justify-self:end; display:inline-flex; align-items:center; gap:8px;
   padding:10px 18px; border-radius:8px; background:var(--ink); color:var(--canvas);
   text-decoration:none; font-size:13px; font-weight:600;
+  transition:background .2s ease, color .2s ease;
+}
+/* Each project page scopes --accent/--accent-ink to its own kitsch color, so
+   this alone makes the CTA hover to the right color on every page. */
+.nav-cta:hover { background:var(--accent); color:var(--accent-ink); }
+/* No hover on touch devices, so show the project color by default there
+   instead of leaving it permanently white/black. */
+@media (hover:none) {
+  .nav-cta { background:var(--accent); color:var(--accent-ink); }
 }
 @media (max-width:760px) {
   .nav { grid-template-columns:1fr auto; padding:14px 20px; }
