@@ -50,4 +50,47 @@ document.addEventListener('DOMContentLoaded', function () {
       if (cursor) cursor.classList.remove('is-hidden');
     });
   });
+
+  // Gallery click-to-zoom — small screenshot crops are hard to read, so each
+  // one gets a "+ Click" hint on hover and opens a near-full-screen preview
+  // when clicked. Closes on click (backdrop/image/✕) or Escape. Excludes
+  // .gallery.full (ERD/architecture diagrams) — those are already full-width.
+  var galleryFigures = document.querySelectorAll('.gallery:not(.full) figure');
+  if (galleryFigures.length) {
+    var zoom = document.createElement('div');
+    zoom.className = 'gallery-zoom';
+    zoom.innerHTML = '<div class="gallery-zoom-frame"><img alt=""><figcaption></figcaption><button class="gallery-zoom-close" aria-label="Close">✕</button></div>';
+    document.body.appendChild(zoom);
+    var zoomImg = zoom.querySelector('img');
+    var zoomCap = zoom.querySelector('figcaption');
+    var closeZoom = function () { zoom.classList.remove('is-visible'); };
+    zoom.addEventListener('click', closeZoom);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeZoom();
+    });
+
+    galleryFigures.forEach(function (fig) {
+      var img = fig.querySelector('img');
+      var cap = fig.querySelector('figcaption');
+      if (!img) return;
+
+      var media = document.createElement('div');
+      media.className = 'zoom-media';
+      img.parentNode.insertBefore(media, img);
+      media.appendChild(img);
+
+      var hint = document.createElement('div');
+      hint.className = 'zoom-hint';
+      hint.innerHTML = '<span class="zoom-hint-icon">+</span><span class="zoom-hint-label">Click</span>';
+      media.appendChild(hint);
+
+      media.addEventListener('click', function () {
+        zoomImg.src = img.src;
+        zoomImg.alt = img.alt || '';
+        zoomCap.textContent = cap ? cap.textContent : '';
+        zoomCap.style.display = cap ? '' : 'none';
+        zoom.classList.add('is-visible');
+      });
+    });
+  }
 });

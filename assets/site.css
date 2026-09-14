@@ -175,6 +175,54 @@ code.hl { font-family:var(--mono); font-size:0.92em; }
 }
 @media (max-width:760px) { .gallery { grid-template-columns:1fr; } }
 
+/* Click-to-zoom media wrapper — site.js wraps each gallery <img> in this so
+   the "click to enlarge" hint can sit centered over just the image, not the
+   caption below it. */
+.zoom-media { position:relative; cursor:zoom-in; }
+.zoom-hint {
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:8px;
+  background:rgba(0,0,0,.5); color:#fff;
+  opacity:0; transition:opacity .2s ease; pointer-events:none;
+}
+.zoom-media:hover .zoom-hint { opacity:1; }
+.zoom-hint-icon {
+  width:44px; height:44px; border:2px solid #fff; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:24px; font-weight:700; line-height:1;
+}
+.zoom-hint-label { font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; }
+
+/* Click-to-zoom overlay — opens near full-screen so screenshots are actually
+   readable; closes on click (backdrop, image, or the ✕) or Escape. */
+.gallery-zoom {
+  position:fixed; inset:0; z-index:300;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(0,0,0,0.85);
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .2s ease;
+}
+.gallery-zoom.is-visible { opacity:1; visibility:visible; pointer-events:auto; }
+.gallery-zoom-frame { position:relative; max-width:92vw; max-height:88vh; transform:scale(.96); transition:transform .2s ease; cursor:zoom-out; }
+.gallery-zoom.is-visible .gallery-zoom-frame { transform:scale(1); }
+.gallery-zoom img {
+  display:block; max-width:92vw; max-height:88vh; width:auto; height:auto;
+  object-fit:contain; border-radius:14px; border:1px solid var(--line);
+  box-shadow:0 24px 80px rgba(0,0,0,.6);
+}
+.gallery-zoom figcaption {
+  position:absolute; left:50%; bottom:-16px; transform:translate(-50%,100%);
+  margin:0; padding:7px 16px; background:#fff; color:#000; border-radius:6px;
+  font-size:13.5px; white-space:nowrap; max-width:92vw; overflow:hidden; text-overflow:ellipsis;
+}
+.gallery-zoom-close {
+  position:absolute; top:-18px; right:-18px; width:36px; height:36px;
+  background:#fff; color:#000; border-radius:50%; border:none;
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px; line-height:1; cursor:pointer;
+}
+@media (max-width:760px) { .gallery-zoom-close { top:-14px; right:0; } }
+
 .feat-list { display:flex; flex-direction:column; gap:28px; margin-top:28px; }
 .feat { display:flex; gap:20px; }
 .feat .fn { font-family:var(--display); font-weight:700; font-size:22px; color:var(--accent); flex:none; width:40px; }
