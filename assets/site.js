@@ -51,12 +51,24 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Gallery click-to-zoom — small screenshot crops are hard to read, so each
-  // one gets a "+ Click" hint on hover and opens a near-full-screen preview
-  // when clicked. Closes on click (backdrop/image/✕) or Escape. Excludes
-  // .gallery.full (ERD/architecture diagrams) — those are already full-width.
-  var galleryFigures = document.querySelectorAll('.gallery:not(.full) figure');
-  if (galleryFigures.length) {
+  // Click-to-zoom — small screenshot crops (project galleries, troubleshooting
+  // evidence photos) are hard to read, so each gets a "+ Click" hint on hover
+  // and opens a near-full-screen preview when clicked. Closes on click
+  // (backdrop/image/✕) or Escape. Excludes .gallery.full (ERD/architecture
+  // diagrams, already full-width) and .ev-compare (a text table, not a photo).
+  var zoomTargets = [];
+  document.querySelectorAll('.gallery:not(.full) figure, .ev-proof figure').forEach(function (fig) {
+    var img = fig.querySelector('img');
+    var cap = fig.querySelector('figcaption');
+    if (img) zoomTargets.push({ img: img, capText: cap ? cap.textContent : '' });
+  });
+  document.querySelectorAll('.ev-body > img').forEach(function (img) {
+    var capEl = img.parentNode.nextElementSibling;
+    var capText = (capEl && capEl.classList.contains('ev-caption')) ? capEl.textContent : '';
+    zoomTargets.push({ img: img, capText: capText });
+  });
+
+  if (zoomTargets.length) {
     var zoom = document.createElement('div');
     zoom.className = 'gallery-zoom';
     zoom.innerHTML = '<div class="gallery-zoom-frame"><img alt=""><figcaption></figcaption><button class="gallery-zoom-close" aria-label="Close">✕</button></div>';
@@ -69,11 +81,8 @@ document.addEventListener('DOMContentLoaded', function () {
       if (e.key === 'Escape') closeZoom();
     });
 
-    galleryFigures.forEach(function (fig) {
-      var img = fig.querySelector('img');
-      var cap = fig.querySelector('figcaption');
-      if (!img) return;
-
+    zoomTargets.forEach(function (t) {
+      var img = t.img;
       var media = document.createElement('div');
       media.className = 'zoom-media';
       img.parentNode.insertBefore(media, img);
@@ -87,8 +96,8 @@ document.addEventListener('DOMContentLoaded', function () {
       media.addEventListener('click', function () {
         zoomImg.src = img.src;
         zoomImg.alt = img.alt || '';
-        zoomCap.textContent = cap ? cap.textContent : '';
-        zoomCap.style.display = cap ? '' : 'none';
+        zoomCap.textContent = t.capText || '';
+        zoomCap.style.display = t.capText ? '' : 'none';
         zoom.classList.add('is-visible');
       });
     });
