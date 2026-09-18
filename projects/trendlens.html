@@ -63,7 +63,7 @@
       <h2 style="margin-top:56px;">Pipeline highlights</h2>
       <div class="feat-list">
         <div class="feat"><div class="fn">01</div><div><div class="ft">TrendScore 계산 엔진</div><div class="fd">단어 빈도(ScoreA)와 DataLab 검색 트래픽(ScoreB)의 편차를 정규화로 해결. <code class="hl">FinalScore = A·0.4 + B·0.6</code>, 전일 대비 growthRate로 HOT 판별.</div></div></div>
-        <div class="feat"><div class="fn">02</div><div><div class="ft">크롤링 속도 5분 → 20–30초</div><div class="fd">20 키워드 × 10 블로그 순차 크롤링을 <code class="hl">parallelStream()</code> 으로 병렬 처리, 개별 URL try-catch 격리 — 약 10배 단축.</div></div></div>
+        <div class="feat"><div class="fn">02</div><div><div class="ft">블로그 크롤링 속도 5분 → 20–30초</div><div class="fd">키워드당 블로그 10건 크롤링 구간(20 키워드 × 10 블로그)을 <code class="hl">parallelStream()</code> 으로 병렬 처리, 개별 URL try-catch 격리 — 약 10배 단축.</div></div></div>
         <div class="feat"><div class="fn">03</div><div><div class="ft">3단계 Fallback 크롤러</div><div class="fd">동적 크롤링 → Jsoup DOM 파싱 → 키워드 기반 카테고리 보정. <code class="hl">User-Agent</code> 변경 + <code class="hl">AutomationControlled</code> 비활성으로 봇 차단 회피.</div></div></div>
         <div class="feat"><div class="fn">04</div><div><div class="ft">AI 분석 — Gemini 프롬프트 엔지니어링</div><div class="fd">"요약(3줄) ||| 스타일링 팁(1문장)" 구분자 형식으로 출력 강제 → UI 파싱 안정성 확보. 분석 근거 <code class="hl">sourceUrls</code> 저장으로 출처 추적 가능.</div></div></div>
       </div>
@@ -85,7 +85,7 @@
   </section>
 
   <section class="case-section">
-    <h2>Troubleshooting — 6 cases</h2>
+    <h2>Troubleshooting — 7 cases</h2>
     <div class="trouble-grid">
       <div class="tcard reveal">
         <div class="tt">01 · Selenium 크롤링 차단 &amp; 요소 탐지 실패</div>
@@ -94,14 +94,21 @@
         <div class="trow result"><span class="tk">결과</span><span class="tv">봇 차단 감소, Lazy Loading 요소 안정 로딩, 데이터 누락 해소</span></div>
       </div>
       <div class="tcard reveal">
-        <div class="tt">02 · 데이터 수집 속도 저하 (5분 → 20–30초)</div>
-        <div class="trow"><span class="tk">문제</span><span class="tv">20 키워드 × 10 블로그 순차 크롤링으로 전체 파이프라인 5분 이상 소요</span></div>
-        <div class="trow"><span class="tk">원인</span><span class="tv">네트워크 I/O(Jsoup)가 이중 for-loop 안에서 Blocking 방식으로 동작</span></div>
-        <div class="trow"><span class="tk">해결</span><span class="tv">상세 페이지 크롤링을 <span class="hl">parallelStream()</span> 으로 병렬화, URL 단위 try-catch 격리</span></div>
-        <div class="trow result"><span class="tk">결과</span><span class="tv">전체 실행 시간 약 10배 단축 (5분 → 20–30초)</span></div>
+        <div class="tt">02 · 무신사 카테고리 크롤러 병렬화</div>
+        <div class="trow"><span class="tk">문제</span><span class="tv">무신사 상세페이지 카테고리 수집이 Selenium for 루프로 20건 순차 방문 — 상품 1건당 실제 브라우저 세션 1개</span></div>
+        <div class="trow"><span class="tk">원인</span><span class="tv">WebDriver는 스레드 세이프하지 않아 드라이버 하나를 여러 스레드가 공유 불가</span></div>
+        <div class="trow"><span class="tk">해결</span><span class="tv">상세페이지 방문마다 독립 드라이버를 새로 생성하고 <code class="hl">ForkJoinPool(4)</code>로 동시 개수를 제한한 parallelStream() 적용. 드라이버 기동 실패도 해당 상품 1건만 격리해 전체 배치로 전파되지 않도록 처리</span></div>
+        <div class="trow result"><span class="tk">결과</span><span class="tv">20건 기준 173.4초 → 122.9초, <span class="hl">약 1.4배 단축</span>(실측). 순수 네트워크 I/O인 블로그 크롤링(약 10배)과 달리 매 요청마다 브라우저를 새로 띄우는 구조라 병목 종류에 따라 병렬화 효과가 다름을 보여주는 사례</span></div>
       </div>
       <div class="tcard reveal">
-        <div class="tt">03 · TrendScore ScoreB 미산출 &amp; DataLab 연동 실패</div>
+        <div class="tt">03 · 블로그 상세 크롤링 속도 저하 (서브스텝 5분 → 20–30초)</div>
+        <div class="trow"><span class="tk">문제</span><span class="tv">20 키워드 × 10 블로그 순차 크롤링 — 블로그 상세 크롤링 서브스텝(키워드당 블로그 10건 구간)만 5분 이상 소요</span></div>
+        <div class="trow"><span class="tk">원인</span><span class="tv">네트워크 I/O(Jsoup)가 이중 for-loop 안에서 Blocking 방식으로 동작</span></div>
+        <div class="trow"><span class="tk">해결</span><span class="tv">상세 페이지 크롤링을 <span class="hl">parallelStream()</span> 으로 병렬화, URL 단위 try-catch 격리</span></div>
+        <div class="trow result"><span class="tk">결과</span><span class="tv">해당 서브스텝 실행 시간 약 10배 단축 (5분 → 20–30초)</span></div>
+      </div>
+      <div class="tcard reveal">
+        <div class="tt">04 · TrendScore ScoreB 미산출 &amp; DataLab 연동 실패</div>
         <div class="trow"><span class="tk">문제</span><span class="tv">로그상 "저장 완료"인데 TrendMetric 테이블 비어 있고 ScoreB가 항상 0</span></div>
         <div class="trow"><span class="tk">원인</span><span class="tv">상품명(옵션·색상·특수문자 포함) 그대로 전송 → data: [] 빈 응답. HTTP 200만 체크하여 오판</span></div>
         <div class="trow"><span class="tk">해결</span><span class="tv"><span class="hl">검색어 전처리</span> 후 순수 키워드만 요청. 빈 응답 시 Warning 로그 후 저장 스킵</span></div>
@@ -109,14 +116,14 @@
         <div class="t-evidence"><img src="../assets/img/trendlens/trouble-datalab.jpg" alt="ScoreB 컬럼이 전부 0으로 적재된 SQL 결과 로그"><div class="t-evidence-cap">Evidence · ScoreB 컬럼이 전부 0으로 적재된 실측 로그</div></div>
       </div>
       <div class="tcard reveal">
-        <div class="tt">04 · JPA Session/EntityManager is closed</div>
+        <div class="tt">05 · JPA Session/EntityManager is closed</div>
         <div class="trow"><span class="tk">문제</span><span class="tv">크롤링 중 예외 한 번 발생 후 모든 DB 접근이 Session is closed 로 실패</span></div>
         <div class="trow"><span class="tk">원인</span><span class="tv">큰 @Transactional 내부 RuntimeException → 영속성 컨텍스트 종료</span></div>
         <div class="trow"><span class="tk">해결</span><span class="tv">대규모 메서드 트랜잭션 제거, 저장 로직만 <span class="hl">REQUIRES_NEW</span> 단위로 분리</span></div>
         <div class="trow result"><span class="tk">결과</span><span class="tv">장시간 크롤링에서도 세션 안정 유지, 단일 실패가 전체 배치를 중단시키지 않도록 격리</span></div>
       </div>
       <div class="tcard reveal">
-        <div class="tt">05 · Midnight Gap — 자정~배치 전 랭킹 공백</div>
+        <div class="tt">06 · Midnight Gap — 자정~배치 전 랭킹 공백</div>
         <div class="trow"><span class="tk">문제</span><span class="tv">매일 자정~새벽 3시 사이 랭킹 페이지가 완전히 비어 보이는 현상</span></div>
         <div class="trow"><span class="tk">원인</span><span class="tv">LocalDate.now() 기준 조회인데 배치 실행(03:00) 전에는 해당 날짜 데이터 없음</span></div>
         <div class="trow"><span class="tk">해결</span><span class="tv"><span class="hl">SELECT MAX(base_date)</span> 로 DB에 존재하는 최신 날짜 조회 후 랭킹 반환</span></div>
@@ -124,7 +131,7 @@
         <div class="t-evidence"><img src="../assets/img/trendlens/trouble-midnight.jpg" alt="자정 직후 Weekly Ranking 페이지가 END OF LIST 상태"><div class="t-evidence-cap">Evidence · 새벽 시간대 END OF LIST 빈 화면</div></div>
       </div>
       <div class="tcard reveal">
-        <div class="tt">06 · AWS 서버 타임존 불일치로 배치 미실행</div>
+        <div class="tt">07 · AWS 서버 타임존 불일치로 배치 미실행</div>
         <div class="trow"><span class="tk">문제</span><span class="tv">새벽 3시 실행돼야 할 배치가 의도한 시간에 동작하지 않음</span></div>
         <div class="trow"><span class="tk">원인</span><span class="tv">AWS 서버 기본 타임존이 UTC — @Scheduled(cron = "0 0 3 * * *") 가 UTC 03:00에 실행</span></div>
         <div class="trow"><span class="tk">해결</span><span class="tv"><span class="hl">zone = "Asia/Seoul"</span> 명시로 스케줄러 타임존 고정</span></div>
