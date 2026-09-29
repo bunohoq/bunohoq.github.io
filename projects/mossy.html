@@ -66,7 +66,7 @@
         <div class="feat"><div class="fn">01</div><div><div class="ft">API Gateway — JWT 인증 필터 / 헤더 변환</div><div class="fd">Authorization 헤더 Bearer 토큰 추출 → JWT 파싱 → 내부 서비스 전달용 <code class="hl">X-User-Id / X-Seller-Id / X-User-Role</code> 헤더로 변환. GlobalCors 우선순위 적용으로 AWS 환경 Preflight 정상 동작 확보.</div></div></div>
         <div class="feat"><div class="fn">02</div><div><div class="ft">Lua Script CAS 기반 Refresh Token Rotation</div><div class="fd">Redis GET/SET 사이의 Race Condition을 단일 원자 명령으로 처리. RT 불일치 시 Replay Attack으로 판단하여 즉시 무효화 (반환값 1 / 0 / -1).</div></div></div>
         <div class="feat"><div class="fn">03</div><div><div class="ft">Saga 패턴 — 분산 트랜잭션 보상</div><div class="fd">소셜 로그인 토큰 발급 실패 시 <code class="hl">rollbackSocialLogin()</code> 호출로 Member 서비스 데이터 롤백. MSA 환경에서 최종 일관성(Eventual Consistency) 보장.</div></div></div>
-        <div class="feat"><div class="fn">04</div><div><div class="ft">Transactional Outbox + Kafka 이벤트 순서 보장</div><div class="fd"><code class="hl">@TransactionalEventListener(AFTER_COMMIT)</code> 으로 DB 커밋 후 Kafka 발행 — 수신 서비스에서 항상 회원 데이터가 존재하도록 정합성 확보.</div></div></div>
+        <div class="feat"><div class="fn">04</div><div><div class="ft">Transactional Outbox 패턴 — 이벤트 발행 신뢰성</div><div class="fd">회원가입 이벤트를 DB 트랜잭션 커밋과 원자적으로 묶어 발행. <code class="hl">@TransactionalEventListener(AFTER_COMMIT)</code>으로 커밋 확정 후 즉시 발행하고, 실패 시 폴링 스케줄러가 자동 재시도.</div></div></div>
       </div>
     </div>
   </div>
@@ -109,11 +109,11 @@
         <div class="trow result"><span class="tk">결과</span><span class="tv">로컬·AWS 환경 모두에서 CORS 정상 동작</span></div>
       </div>
       <div class="tcard reveal">
-        <div class="tt">04 · TransactionalEventListener + Kafka 이벤트 순서</div>
-        <div class="trow"><span class="tk">문제</span><span class="tv">회원가입 트랜잭션 커밋 전 Kafka 발행 시 수신 서비스에서 회원 데이터 미존재 가능성</span></div>
-        <div class="trow"><span class="tk">원인</span><span class="tv">Spring Event와 Kafka 발행 시점이 트랜잭션 커밋과 분리되지 않음</span></div>
-        <div class="trow"><span class="tk">해결</span><span class="tv"><span class="hl">@TransactionalEventListener(AFTER_COMMIT)</span> 으로 DB 커밋 후 Kafka 이벤트 발행</span></div>
-        <div class="trow result"><span class="tk">결과</span><span class="tv">DB 커밋 → Kafka 발행 순서 보장, 수신 서비스 데이터 일관성 확보</span></div>
+        <div class="tt">04 · UserJoinedEvent 발행과 DB 커밋의 분리</div>
+        <div class="trow"><span class="tk">문제</span><span class="tv">회원가입 후 UserJoinedEvent 발행이 순서·재시도 보장 없이 이루어짐</span></div>
+        <div class="trow"><span class="tk">원인</span><span class="tv">kafkaEventPublisher.publish()를 트랜잭션 커밋 전에 바로 호출 — 발행 실패해도 예외 없이 로그만 남기고 트랜잭션은 그대로 커밋 (dual write)</span></div>
+        <div class="trow"><span class="tk">해결</span><span class="tv">재고(market) 도메인에 이미 있던 <span class="hl">Transactional Outbox 패턴</span>(OutboxPublisher + @TransactionalEventListener(AFTER_COMMIT) + 폴링 스케줄러)을 member 모듈에 이식해 회원가입에도 동일하게 적용</span></div>
+        <div class="trow result"><span class="tk">결과</span><span class="tv">이벤트 발행이 DB 트랜잭션과 원자적으로 묶여 발행 유실 위험 제거, 즉시 발행 실패 시 스케줄러가 자동 재발행</span></div>
       </div>
     </div>
   </section>
